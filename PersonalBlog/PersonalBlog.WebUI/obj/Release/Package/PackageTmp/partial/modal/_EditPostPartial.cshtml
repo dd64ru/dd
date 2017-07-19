@@ -1,0 +1,62 @@
+﻿@{
+    var tagsAll = PersonalBlog.WebUI.LogicProvider.TagLogic.GetAll();
+}
+
+<div class="modal fade" id="edit-post" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Редактирование записи</h4>
+            </div>
+            <div class="modal-body">
+                <form action="~/articles/edit" method="post" enctype="multipart/form-data" class="modal-form">
+                    <div class="hidden">
+                        <input type="text" class="title-id" name="title-id">
+                        <input type="text" class="old-user-img" name="old-user-img">
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="title" class="col-xs-3 control-label">Название</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="edit-title form-control input-custom" name="edit-title" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="text" class="col-xs-3 control-label">Текст</label>
+                            <div class="col-xs-9">
+                                <textarea rows="6" class="edit-text form-control input-custom" name="edit-text" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="text" class="col-xs-3 control-label">Изображение</label>
+                            <div class="col-xs-9">
+                                <img class="post-main-image post-img" src="" alt="">
+                                <label class="btn btn-custom btn-custom-default">
+                                    Загрузить <input type="file" id="upload-input" name="file" class="hidden">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="text" class="col-xs-3 control-label">Теги</label>
+                            <div class="col-xs-9">
+                                @RenderPage("~/partial/engine/_AddTagPartial.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="center">
+                            <button type="submit" class="article-btn btn btn-custom btn-custom-ok">Редактировать</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

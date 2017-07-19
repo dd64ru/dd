@@ -1,0 +1,14 @@
+﻿.profile h1, h1, h3 {
+    margin-top: 0;
+}
+
+.profile-info {
+    background: #f6f6f6;
+    margin-bottom: 30px;
+}
+
+.profile-article {
+    margin-bottom: 20px;
+    padding: 0px 0px 20px 0;
+    border-bottom: 2px solid #f2f2f2;
+}

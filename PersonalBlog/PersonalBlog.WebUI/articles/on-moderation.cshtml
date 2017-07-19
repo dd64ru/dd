@@ -1,0 +1,78 @@
+﻿@{
+    if (!User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+        return;
+    }
+
+    var articles = PersonalBlog.WebUI.LogicProvider.ArticleLogic.GetUnpublished();
+    string postImage = string.Empty;
+    PageData["Title"] = "Модерация записей | DD64.ru";
+
+    if (IsPost)
+    {
+        string id = Request["id"];
+        bool isApproved = true;
+
+        PersonalBlog.WebUI.LogicProvider.ArticleLogic.Approve(id, isApproved);
+        return;
+    }
+}
+
+@if (articles.Count() == 0)
+{
+    @RenderPage("~/partial/info/_ArticlesAllPublishedPartial.cshtml")
+}
+else
+{
+    <ul class="posts">
+        @foreach (var article in articles)
+        {
+            var tags = PersonalBlog.WebUI.LogicProvider.TagLogic.GetArticleTags(article.Id);
+            if (article.MainImage == "No photo")
+            {
+                postImage = "foo.png";
+            }
+            else
+            {
+                postImage = article.MainImage;
+            }
+            <li data-id="@article.Id" data-title="@article.Title" data-text="@article.Text" data-img="@postImage">
+                <div class="post">
+                    <h3>@article.Title</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="tags">
+                                @foreach (var tag in tags)
+                                {
+                                    <li><a href="#">@tag.Title</a></li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-md-5">
+                            <span>@article.Author</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>@article.CreateDate</span>
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <img src="~/images/articles/@postImage" alt="@article.Title" class="thumbnail-custom" />
+                        <p>@article.Text</p>
+                    </div>
+                    <div class="clearfix">
+                        <button type="button" class="approve-post btn btn-custom btn-custom-ok">Одобрить</button>
+                        <button type="button" class="delete-post btn btn-custom btn-custom-danger">Удалить</button>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+}
+@section Scripts {
+    <script src="~/Scripts/custom/article.js"></script>
+}
+
+@section Style {
+    <link href="~/Content/custom/post.css" rel="stylesheet" />
+}

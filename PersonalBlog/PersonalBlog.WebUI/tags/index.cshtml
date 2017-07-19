@@ -1,0 +1,41 @@
+﻿@{
+    if (!User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+        return;
+    }
+
+    var tags = PersonalBlog.WebUI.LogicProvider.TagLogic.GetAll();
+    PageData["Title"] = "Теги | DD64.ru";
+}
+
+<div class="input-group">
+    <input type="text" class="creating-tag-input form-control input-custom" required>
+    <span class="input-group-btn">
+        <button type="button" class="creating-tag-btn btn btn-custom btn-custom-ok">Добавить тег</button>
+    </span>
+</div>
+
+<table class="tags-table table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Содержание</th>
+            <th>Управление</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tag in tags)
+        {
+            <tr data-id="@tag.Id" data-title="@tag.Title">
+                <th>@tag.Title</th>
+                <th>
+                    <a href="#" class="edit-tag btn btn-custom btn-custom-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href="#" class="delete-tag btn btn-custom btn-custom-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script src="~/Scripts/custom/tags.js"></script>
+}

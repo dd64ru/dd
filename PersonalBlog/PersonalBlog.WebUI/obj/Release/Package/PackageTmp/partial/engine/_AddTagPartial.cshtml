@@ -1,0 +1,17 @@
+﻿@{
+    var tags = PersonalBlog.WebUI.LogicProvider.TagLogic.GetAll();
+}
+
+<ul class="btn-group add-tag-to-article" data-toggle="buttons">
+    @foreach (var tag in tags)
+    {
+        <li class="toggle-tag">
+            <label for="@tag.Id" class="btn btn-custom btn-custom-default">
+                <input type="checkbox" id="@tag.Id" value="@tag.Id" class="hidden">
+                @tag.Title
+            </label>
+        </li>
+    }
+</ul>
+<span>Необходимо выбрать хотя бы один тег</span>
+<input type="text" class="tags-input hidden" name="tags">

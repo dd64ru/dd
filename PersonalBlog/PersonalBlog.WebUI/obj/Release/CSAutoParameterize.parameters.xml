@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="PersonalBlog-Web.config Connection String" description="PersonalBlog Connection String used in web.config by the application to access the database." defaultValue="Data Source=DD64RU\SQLEXPRESS; Initial Catalog=PersonalBlog; Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\DD\\Documents\\Visual\ Studio\ 2017\\Projects\\PersonalBlog\\PersonalBlog\.WebUI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='PersonalBlog']/@connectionString" />
+  </parameter>
+</parameters>

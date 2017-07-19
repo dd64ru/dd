@@ -1,0 +1,16 @@
+﻿<div class="row info-custom">
+    <div class="col-xs-12">
+        <h3>
+            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                <text>Статья добавлена</text>
+            }
+            else
+            {
+                <text>Статья отправлена на модерацию</text>
+            }
+            <i class="fa fa-check" aria-hidden="true"></i>
+        </h3>
+        <span>Теперь вы можете перейти: <a href="~/articles/">Все записи</a> <a href="~/articles/add.cshtml">Добавить еще одну запись</a></span>
+    </div>
+</div>

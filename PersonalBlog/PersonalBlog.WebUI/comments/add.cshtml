@@ -1,0 +1,27 @@
+﻿@{
+    if (!IsPost)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    var user = PersonalBlog.WebUI.LogicProvider.UserLogic.GetCurrentUser(User.Identity.Name);
+
+    string articleId = Request["articleId"];
+    string title = Request["title"];
+    string text = Request["text"];
+
+    DateTime createDate = DateTime.Now;
+    bool isPublished = false;
+
+    if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+    {
+        isPublished = true;
+    }
+
+    if (!PersonalBlog.WebUI.LogicProvider.CommentLogic.Create(user.Id, articleId, title, text, createDate, isPublished))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+}

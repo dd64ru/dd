@@ -1,0 +1,50 @@
+﻿@{
+    if (!IsPost)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    string id = Request["id"];
+
+    string mainImage = string.Empty;
+    string imagePath = string.Empty;
+    WebImage photo = WebImage.GetImageFromRequest();
+
+    if (photo != null)
+    {
+        mainImage = Guid.NewGuid().ToString() + "_" + Path.GetFileName(photo.FileName);
+        imagePath = Path.Combine(@"/images/users/", mainImage);
+
+        var width = photo.Width;
+        var height = photo.Height;
+
+        if (width > height)
+        {
+            var leftRightCrop = (width - height) / 2;
+            photo.Crop(0, leftRightCrop, 0, leftRightCrop);
+        }
+        else if (height > width)
+        {
+            var topBottomCrop = (height - width) / 2;
+            photo.Crop(topBottomCrop, 0, topBottomCrop, 0);
+        }
+
+        photo.Resize(width: 501, height: 501, preserveAspectRatio: false, preventEnlarge: false).Crop(1, 1);
+
+        photo.Save(@"~\" + imagePath);
+
+    }
+    else
+    {
+        mainImage = "No photo";
+    }
+
+    if (PersonalBlog.WebUI.LogicProvider.UserLogic.Edit(id, mainImage))
+    {
+        Response.Redirect("/profile");
+    }
+
+    Response.SetStatus(HttpStatusCode.BadRequest);
+    return;
+}

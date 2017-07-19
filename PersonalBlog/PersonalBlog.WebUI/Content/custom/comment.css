@@ -1,0 +1,15 @@
+﻿.comment-controls {
+    visibility: hidden;
+}
+
+.comments li {
+    margin-bottom: 15px;
+}
+
+    .comments li:hover .comment-controls {
+        visibility: visible;
+    }
+
+.comments h4 {
+    margin-top: 0;
+}

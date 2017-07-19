@@ -1,0 +1,40 @@
+﻿.post {
+    position: relative;
+    padding: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f4f4f4;
+    transition: all 0.5s cubic-bezier(0.13, 1.28, 0.57, 1);
+}
+
+    .post:hover {
+        box-shadow: 0 0 36px rgba(163, 163, 163, 0.7);
+    }
+
+        .post:hover .post-controls {
+            visibility: visible;
+        }
+
+    .post h3 {
+        margin: 0 0 10px 0;
+    }
+
+    .post a {
+        color: #707070;
+    }
+
+.post-body {
+    margin: 10px 0;
+}
+
+.post-controls {
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.post-main-image {
+    width: 100%;
+    padding: 10px 0;
+}

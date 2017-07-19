@@ -1,0 +1,16 @@
+﻿@{
+    if (!IsPost)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    string id = Request["id"];
+    string title = Request["title"];
+
+    if (!PersonalBlog.WebUI.LogicProvider.TagLogic.Edit(id, title))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+}

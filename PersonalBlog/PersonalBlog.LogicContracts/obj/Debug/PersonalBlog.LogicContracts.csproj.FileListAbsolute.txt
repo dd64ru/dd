@@ -1,0 +1,9 @@
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.LogicContracts\bin\Debug\PersonalBlog.LogicContracts.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.LogicContracts\bin\Debug\PersonalBlog.LogicContracts.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.LogicContracts\bin\Debug\PersonalBlog.Entitie.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.LogicContracts\bin\Debug\PersonalBlog.Entitie.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.LogicContracts\obj\Debug\PersonalBlog.LogicContracts.csprojResolveAssemblyReference.cache
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.LogicContracts\obj\Debug\PersonalBlog.LogicContracts.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.LogicContracts\obj\Debug\PersonalBlog.LogicContracts.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.LogicContracts\bin\Debug\log4net.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.LogicContracts\bin\Debug\log4net.xml

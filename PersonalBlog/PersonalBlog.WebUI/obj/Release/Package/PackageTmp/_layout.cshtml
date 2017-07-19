@@ -1,0 +1,161 @@
+﻿@using log4net;
+@using log4net.Config;
+@{
+    var tags = PersonalBlog.WebUI.LogicProvider.TagLogic.GetAll();
+    string userImage = string.Empty;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@PageData["Title"]</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://meyerweb.com/eric/tools/css/reset/reset.css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/custom/style.css" rel="stylesheet" />
+    <link href="~/favicon.ico" rel="icon" type="image/x-icon">
+</head>
+<body>
+    <div class="header" role="navigation">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="row">
+                    <div class="hidden-xs col-md-3">
+                        <a href="/">
+                            <img src="~/images/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="col-xs-8 col-md-6">
+                        <form method="post" action="~/articles">
+                            <div class="input-group">
+                                <input type="text" class="search-input form-control input-custom" name="search">
+                                <span class="input-group-btn">
+                                    <button class="search-submit btn btn-custom btn-custom-default" type="submit">Поиск</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-xs-4 col-md-3">
+                        <div class="float-right">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var user = PersonalBlog.WebUI.LogicProvider.UserLogic.GetCurrentUser(User.Identity.Name);
+                                if (user.UserPhoto == "No photo")
+                                {
+                                    userImage = "foo.png";
+                                }
+                                else
+                                {
+                                    userImage = user.UserPhoto;
+                                }
+                                <span>@user.Name </span>
+                                    <a href="~/profile/index">
+                                        <img src="~/images/users/@userImage" alt="Фото юзера" class="thumbnail-micro">
+                                    </a>
+                                    <a href="~/users/logout" class="btn btn-custom btn-custom-danger">Выйти</a>
+                            }
+                            else
+                            {
+                                <a href="#" data-toggle="modal" data-target="#user-login" class="btn btn-custom btn-custom-ok">Войти</a>
+                                    <a href="#" data-toggle="modal" data-target="#user-registration" class="user-registration btn btn-custom btn-custom-default">Регистрация</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <content class="global">
+        <div class="container-fluid slim">
+            <content class="content">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="row">
+                            <div class="col-md-9 test-test">
+                                @RenderBody()
+                            </div>
+                            <div class="col-md-3">
+                                <aside class="sidebar">
+                                    <nav>
+                                        <ul class="menu">
+                                            <li><a href="~/articles">Все записи</a></li>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <li><a href="~/articles/add">Добавить пост</a></li>
+                                                <li><a href="~/profile">Учетная запись</a></li>
+                                                if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                                {
+                                                    int articlesUnpublished = PersonalBlog.WebUI.LogicProvider.ArticleLogic.GetUnpublished().Count();
+                                                    int commentsUnpublished = PersonalBlog.WebUI.LogicProvider.CommentLogic.GetUnpublished().Count();
+                                                    <li><div class="divider"></div></li>
+                                                    <li><a href="~/articles/articles-list">Список записей</a></li>
+                                                    <li>
+                                                        <a href="~/articles/on-moderation">
+                                                            Модерация записей
+                                                            @if (articlesUnpublished != 0)
+                                                            {
+                                                                <span class="badge">@articlesUnpublished</span>
+                                                            }
+                                                        </a>
+                                                    </li>
+                                                    <li><a href="~/tags">Теги</a></li>
+                                                    <li>
+                                                        <a href="~/comments/on-moderation">
+                                                            Модерация комментариев
+                                                            @if (commentsUnpublished != 0)
+                                                            {
+                                                                <span class="badge">@commentsUnpublished</span>
+                                                            }
+                                                        </a>
+                                                    </li>
+                                                    if (User.IsInRole("Admin"))
+                                                    {
+                                                        <li><div class="divider"></div></li>
+                                                        <li><a href="~/users">Пользователи</a></li>
+                                                    }
+
+                                                }
+                                            }
+                                        </ul>
+                                    </nav>
+                                    <div class="tags">
+                                        <form method="post" action="~/tags/search">
+                                            <input type="text" class="tags-all-input hidden" name="search">
+                                            <ul>
+                                                @foreach (var tag in tags)
+                                                {
+                                                    <li>
+                                                        <button class="tag-btn btn btn-custom btn-custom-default btn-custom-sm" data-title="@tag.Title">@tag.Title</button>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </form>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </content>
+        </div>
+        <nav class="fixed-menu">
+            <ul>
+                <li><a href="https://vk.com/dd64ru" target="_blank"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                <li><a href="https://t.me/dd64ru" target="_blank"><i class="fa fa-telegram" aria-hidden="true"></i></a></li>
+            </ul>
+        </nav>
+    </content>
+
+    @RenderPage("~/partial/modal/_UserLoginPartial.cshtml")
+    @RenderPage("~/partial/modal/_UserRegistrationPartial.cshtml")
+    @RenderPage("~/partial/modal/_ErrorPartial.cshtml")
+
+    <img src="~/images/ajax-loader.gif" class="ajax-status-img hidden">
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/14c34bf379.js"></script>
+    <script src="~/Scripts/custom/Common.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

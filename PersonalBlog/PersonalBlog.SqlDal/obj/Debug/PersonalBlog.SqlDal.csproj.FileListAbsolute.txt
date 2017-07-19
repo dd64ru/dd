@@ -1,0 +1,11 @@
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\obj\Debug\PersonalBlog.SqlDal.csprojResolveAssemblyReference.cache
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\bin\Debug\PersonalBlog.SqlDal.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\bin\Debug\PersonalBlog.SqlDal.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\bin\Debug\PersonalBlog.DalContracts.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\bin\Debug\PersonalBlog.Entitie.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\bin\Debug\PersonalBlog.DalContracts.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\bin\Debug\PersonalBlog.Entitie.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\obj\Debug\PersonalBlog.SqlDal.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\obj\Debug\PersonalBlog.SqlDal.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\bin\Debug\log4net.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.SqlDal\bin\Debug\log4net.xml

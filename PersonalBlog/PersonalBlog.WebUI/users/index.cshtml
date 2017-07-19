@@ -1,0 +1,71 @@
+﻿@{
+    if (!User.IsInRole("Admin"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+        return;
+    }
+
+    PageData["Title"] = "Пользователи | DD64.ru";
+
+    var users = PersonalBlog.WebUI.LogicProvider.UserLogic.GetAll();
+    string image = string.Empty;
+}
+
+<table class="users-list table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Фото</th>
+            <th>Логин</th>
+            <th>Роли</th>
+            <th>Управление</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in users)
+        {
+            var userRoles = PersonalBlog.WebUI.LogicProvider.RoleLogic.GetRoles(user.Name);
+
+            if (user.UserPhoto == "No photo")
+            {
+                image = "foo.png";
+            }
+            else
+            {
+                image = user.UserPhoto;
+            }
+
+            <tr data-id="@user.Id" data-login="@user.Name" data-img="@image">
+                <th>@user.Id</th>
+                <th><img src="~/images/users/@image" alt="@user.Name" class="thumbnail-micro" /></th>
+                <th>@user.Name</th>
+                <th>
+                    <ul class="roles-badge">
+                        @for (int i = 0; i < userRoles.Length; i++)
+                        {
+                            <li data-role-title="@userRoles[i]" data-user-id="@user.Id" class="btn-custom">
+                                @userRoles[i]
+                            @if (userRoles[i] != "User" && User.Identity.Name != user.Name)
+                            {
+                                <i class="delete-current-role fa fa-times " aria-hidden="true"></i>
+                            }
+                        </li>
+                        }
+                    </ul>
+                </th>
+                <th>
+                    <a href="#" class="add-role btn btn-custom btn-custom-ok" data-toggle="modal" data-target="#add-role"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    @if (User.Identity.Name != user.Name)
+                    {
+                        <a href="#" class="delete-user btn btn-custom btn-custom-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    }
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@RenderPage("~/partial/modal/_AddRoleToUserPartial.cshtml")
+@section Scripts {
+    <script src="~/Scripts/custom/users.js"></script>
+}

@@ -1,0 +1,13 @@
+﻿@{
+    if (!IsPost)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    string userId = Request["userId"];
+    string roleId = Request["roleId"];
+
+    PersonalBlog.WebUI.LogicProvider.RoleLogic.AddRoleToUser(userId, roleId);
+    return;
+}

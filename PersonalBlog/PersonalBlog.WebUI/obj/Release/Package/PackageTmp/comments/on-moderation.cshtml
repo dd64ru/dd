@@ -1,0 +1,54 @@
+﻿@{
+    if (!User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+        return;
+    }
+
+    var articles = PersonalBlog.WebUI.LogicProvider.ArticleLogic.GetUnpublished();
+    var comments = PersonalBlog.WebUI.LogicProvider.CommentLogic.GetUnpublished();
+    PageData["Title"] = "Модерация комментариев | DD64.ru";
+
+    if (IsPost)
+    {
+        string id = Request["id"];
+        bool isApproved = true;
+
+        PersonalBlog.WebUI.LogicProvider.CommentLogic.Approve(id, isApproved);
+        return;
+    }
+}
+
+@if (comments.Count() == 0)
+{
+    @RenderPage("~/partial/info/_CommentsAllPublishedPartial.cshtml")
+}
+else
+{
+    <ul class="posts comments-list">
+        @foreach (var comment in comments)
+        {
+            var articleInfo = PersonalBlog.WebUI.LogicProvider.ArticleLogic.GetArticleInfoByCommentId(comment.Id);
+            <li data-id="@comment.Id">
+                <div class="post">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <h3>@comment.Title</h3>
+                            <span>@comment.CreateDate</span>
+                            <p>@comment.Text</p>
+                        </div>
+                        <div class="col-xs-3">
+                            <p>Статья: </p>
+                            <p>@articleInfo.Title</p>
+                        </div>
+                    </div>
+
+                    <div class="clearfix">
+                        <button type="button" class="approve-comment btn btn-custom btn-custom-ok">Одобрить</button>
+                        <button type="button" class="delete-comment btn btn-custom btn-custom-danger">Удалить</button>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+}

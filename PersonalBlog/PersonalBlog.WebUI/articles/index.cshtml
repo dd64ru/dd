@@ -1,0 +1,141 @@
+﻿@using PersonalBlog.Entities;
+@{
+    string postImage = string.Empty;
+    PageData["Title"] = "Все записи | DD64.ru";
+    List<Article> articles = new List<Article>();
+    if (IsPost)
+    {
+        string searchRequest = Request["search"];
+        articles = PersonalBlog.WebUI.LogicProvider.ArticleLogic.Search(searchRequest).ToList();
+    }
+    else
+    {
+        articles = PersonalBlog.WebUI.LogicProvider.ArticleLogic.GetAll().ToList();
+    }
+
+}
+
+@if (IsPost && articles.Count == 0)
+{
+    @RenderPage("~/partial/info/_ArticleNotFoundPartial.cshtml")
+}
+else if (articles.Count == 0)
+{
+    @RenderPage("~/partial/info/_ArticlesEmptyPartial.cshtml")
+}
+else
+{
+    <ul class="posts">
+        @foreach (var article in articles)
+        {
+            var tags = PersonalBlog.WebUI.LogicProvider.TagLogic.GetArticleTags(article.Id);
+            if (article.MainImage == "No photo")
+            {
+                postImage = "foo.png";
+            }
+            else
+            {
+                postImage = article.MainImage;
+            }
+            <li data-id="@article.Id" data-title="@article.Title" data-text="@article.Text" data-img="@postImage">
+                <div class="post">
+                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || User.Identity.Name == article.Author)
+                    {
+                        @RenderPage("~/partial/engine/_PostControlsPartial.cshtml")
+                    }
+
+                    <h3>@article.Title</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tags">
+                                <form method="post" action="~/tags/search">
+                                    <input type="text" class="tags-all-input hidden" name="search">
+                                    <ul>
+                                        @foreach (var tag in tags)
+                                        {
+                                            <li>
+                                                <button class="tag-btn btn btn-custom btn-custom-default btn-custom-sm" data-title="@tag.Title">@tag.Title</button>
+                                            </li>
+                                        }
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <span>@article.Author</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>@article.CreateDate</span>
+                        </div>
+                    </div>
+                    <img src="~/images/articles/@postImage" alt="@article.Title" class="post-main-image" />
+                    <p>@article.Text</p>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <hr>
+                        <ul class="comments comments-list">
+                            @{
+                                var comments = PersonalBlog.WebUI.LogicProvider.CommentLogic.GetArticleComments(article.Id);
+                                if (comments != null)
+                                {
+                                    foreach (var comment in comments)
+                                    {
+                                        var author = comment.Author;
+                                        string authorPhoto = string.Empty;
+                                        if (author.UserPhoto == "No photo" || author.UserPhoto == null)
+                                        {
+                                            authorPhoto = "foo.png";
+                                        }
+                                        else
+                                        {
+                                            authorPhoto = author.UserPhoto;
+                                        }
+                                        <li data-id="@comment.Id">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <img src="~/images/users/@authorPhoto" alt="@author.Name" class="img-fullwidth">
+                                                </div>
+                                                <div class="col-xs-10">
+                                                    <div class="row">
+                                                        <div class="col-xs-9">
+                                                            <h4>@comment.Title</h4>
+                                                        </div>
+                                                        <div class="col-xs-3">
+                                                            <span>@author.Name</span>
+                                                            @if (author.Name == User.Identity.Name || User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                                            {
+                                                                <div class="btn-group comment-controls">
+                                                                    <button type="button" class="delete-comment btn btn-custom btn-custom-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <span>@comment.CreateDate</span>
+                                                    <p>@comment.Text</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+
+                                }
+                            }
+                        </ul>
+                        <button type="button" class="comment btn btn-custom btn-custom-default" data-toggle="modal" data-target="#add-comment">Комментировать</button>
+                                }
+                </div>
+            </li>
+                                }
+    </ul>
+                                }
+
+@RenderPage("~/partial/modal/_AddCommentPartial.cshtml")
+@RenderPage("~/partial/modal/_EditPostPartial.cshtml")
+@section Scripts {
+    <script src="~/Scripts/custom/article.js"></script>
+    <script src="~/Scripts/custom/comments.js"></script>
+}
+@section Style {
+    <link href="~/Content/custom/post.css" rel="stylesheet" />
+    <link href="~/Content/custom/comment.css" rel="stylesheet" />
+}

@@ -1,0 +1,32 @@
+﻿<div class="modal fade" id="add-comment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Оставить комментарий</h4>
+            </div>
+            <div class="modal-body">
+                <form class="modal-form">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="title" class="col-xs-3 control-label">Заголовок</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="create-comment-title form-control input-custom" placeholder="Тема" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="text" class="col-xs-3 control-label">Текст</label>
+                            <div class="col-xs-9">
+                                <textarea rows="6" class="create-comment-text form-control input-custom" placeholder="Комментарий" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="create-comment-btn btn btn-custom btn-custom-ok">Добавить комментарий</button>
+                    <span class="add-comment-status"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

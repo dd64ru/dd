@@ -1,0 +1,39 @@
+﻿@{
+    var roles = PersonalBlog.WebUI.LogicProvider.RoleLogic.GetAll();
+}
+<div class="modal fade" id="add-role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Выбрать роль</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <table class="table table-striped table-hover" id="awards-in-modal">
+                        <thead class="thead-custom">
+                            <tr>
+                                <th>Роль</th>
+                                <th>Добавить</th>
+                            </tr>
+                        </thead>
+                        <tbody class="roles-list">
+                            @foreach (var role in roles)
+                            {
+                                <tr data-id="@role.Id" data-title="@role.Title">
+                                    <th id="award-id-@role.Id">@role.Title</th>
+                                    <th>
+                                        <a href="#" class="add-this-role btn btn-custom btn-custom-default"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    </th>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-custom btn-custom-default" data-dismiss="modal">Назад</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

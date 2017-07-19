@@ -1,0 +1,14 @@
+﻿@{
+    string login = Request["login"];
+    string password = Request["password"];
+
+    if (PersonalBlog.WebUI.LogicProvider.UserLogic.CanLogin(login, password))
+    {
+        FormsAuthentication.SetAuthCookie(login, createPersistentCookie: false);
+        Response.AppendHeader("IsLoginCorrect", "true");
+    }
+    else
+    {
+        Response.AppendHeader("IsLoginCorrect", "false");
+    }
+}

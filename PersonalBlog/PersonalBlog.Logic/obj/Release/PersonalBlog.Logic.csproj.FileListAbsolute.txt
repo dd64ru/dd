@@ -1,0 +1,15 @@
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.Logic.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.Logic.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\log4net.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.DalContracts.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.Entitie.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.LogicContracts.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.SqlDal.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.DalContracts.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.Entitie.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.LogicContracts.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\PersonalBlog.SqlDal.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\bin\Release\log4net.xml
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\obj\Release\PersonalBlog.Logic.csprojResolveAssemblyReference.cache
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\obj\Release\PersonalBlog.Logic.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.Logic\obj\Release\PersonalBlog.Logic.pdb

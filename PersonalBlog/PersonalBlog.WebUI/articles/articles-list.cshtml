@@ -1,0 +1,68 @@
+﻿@{
+    if (!User.IsInRole("Admin") && !User.IsInRole("Moderator"))
+    {
+        Response.SetStatus(HttpStatusCode.Forbidden);
+        return;
+    }
+
+    var articles = PersonalBlog.WebUI.LogicProvider.ArticleLogic.GetAll();
+    PageData["Title"] = "Список записей | DD64.ru";
+    string postImage = string.Empty;
+}
+
+<table class="posts-table table table-striped table-hover">
+    <thead class="">
+        <tr>
+            <th>Название</th>
+            <th>Теги</th>
+            <th>Дата</th>
+            <th>Автор</th>
+            <th>Управление</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var article in articles)
+        {
+            var tags = PersonalBlog.WebUI.LogicProvider.TagLogic.GetArticleTags(article.Id);
+            if (article.MainImage == "No photo")
+            {
+                postImage = "foo.png";
+            }
+            else
+            {
+                postImage = article.MainImage;
+            }
+            <tr data-id="@article.Id" data-title="@article.Title" data-text="@article.Text" data-img="@postImage">
+                <th>@article.Title</th>
+                <th>
+                    <div class="tags">
+                        <form method="post" action="~/tags/search">
+                            <input type="text" class="tags-all-input hidden" name="search">
+                            <ul>
+                                @foreach (var tag in tags)
+                                {
+                                    <li>
+                                        <button class="tag-btn btn btn-custom btn-custom-default btn-custom-sm" data-title="@tag.Title">@tag.Title</button>
+                                    </li>
+                                }
+                            </ul>
+                        </form>
+                    </div>
+                </th>
+                <th>@article.CreateDate</th>
+                <th>@article.Author</th>
+                <th>
+                    <a href="#" class="edit-post btn btn-custom btn-custom-warning" data-toggle="modal" data-target="#edit-post"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href="#" class="delete-post btn btn-custom btn-custom-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@RenderPage("~/partial/modal/_EditPostPartial.cshtml")
+@section Scripts {
+    <script src="~/Scripts/custom/article.js"></script>
+}
+    
+

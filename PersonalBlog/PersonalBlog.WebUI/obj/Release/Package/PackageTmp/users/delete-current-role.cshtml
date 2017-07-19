@@ -1,0 +1,11 @@
+﻿@{
+    if (!IsPost)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    string title = Request["title"];
+    string userId = Request["userId"];
+    PersonalBlog.WebUI.LogicProvider.RoleLogic.DeleteUserRole(userId, title);
+}

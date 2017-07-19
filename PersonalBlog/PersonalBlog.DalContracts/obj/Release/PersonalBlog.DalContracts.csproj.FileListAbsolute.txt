@@ -1,0 +1,9 @@
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.DalContracts\bin\Release\PersonalBlog.DalContracts.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.DalContracts\bin\Release\PersonalBlog.DalContracts.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.DalContracts\bin\Release\log4net.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.DalContracts\bin\Release\PersonalBlog.Entitie.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.DalContracts\bin\Release\PersonalBlog.Entitie.pdb
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.DalContracts\bin\Release\log4net.xml
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.DalContracts\obj\Release\PersonalBlog.DalContracts.csprojResolveAssemblyReference.cache
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.DalContracts\obj\Release\PersonalBlog.DalContracts.dll
+C:\Users\DD\Documents\Visual Studio 2017\Projects\PersonalBlog\PersonalBlog.DalContracts\obj\Release\PersonalBlog.DalContracts.pdb

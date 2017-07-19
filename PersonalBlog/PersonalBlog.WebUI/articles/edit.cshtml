@@ -1,0 +1,37 @@
+﻿@{
+    if (!IsPost)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    string id = Request["title-id"];
+    string title = Request["edit-title"];
+    string text = Request["edit-text"];
+    string mainImage = Request["old-user-img"];
+    string tagsInput = Request["tags"];
+
+    string[] tagsArray = tagsInput.Split(',');
+
+    WebImage photo = WebImage.GetImageFromRequest();
+    string imagePath = string.Empty;
+
+    if (photo != null)
+    {
+        mainImage = Guid.NewGuid().ToString() + "_" + Path.GetFileName(photo.FileName);
+        imagePath = Path.Combine(@"/images/articles/", mainImage);
+
+        photo.Resize(width: 1001, height: 1001, preserveAspectRatio: true, preventEnlarge: false).Crop(1, 1);
+
+        photo.Save(@"~\" + imagePath);
+    }
+
+    if (PersonalBlog.WebUI.LogicProvider.ArticleLogic.Edit(id, title, mainImage, text, tagsArray))
+    {
+        Response.Redirect("/articles");
+        return;
+    }
+
+    Response.SetStatus(HttpStatusCode.BadRequest);
+    return;
+}

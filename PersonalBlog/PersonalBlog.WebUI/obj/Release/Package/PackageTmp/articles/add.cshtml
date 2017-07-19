@@ -1,0 +1,93 @@
+﻿@{
+    PageData["Title"] = "Новая запись | DD64.ru";
+
+    if (IsPost)
+    {
+        string title = Request["title"];
+        string text = Request["text"];
+        string tagsInput = Request["tags"];
+
+        string[] tagsArray = tagsInput.Split(',');
+
+        DateTime createDate = DateTime.Now;
+        string mainImage = string.Empty;
+        bool isPublished = false;
+
+        if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+        {
+            isPublished = true;
+        }
+
+        WebImage photo = WebImage.GetImageFromRequest();
+        string imagePath = string.Empty;
+
+        if (photo != null)
+        {
+            mainImage = Guid.NewGuid().ToString() + "_" + Path.GetFileName(photo.FileName);
+            imagePath = Path.Combine(@"/images/articles/", mainImage);
+
+            photo.Resize(width: 1001, height: 1001, preserveAspectRatio: true, preventEnlarge: false).Crop(1, 1);
+
+            photo.Save(@"~\" + imagePath);
+
+        }
+        else
+        {
+            mainImage = "No photo";
+        }
+
+        if (PersonalBlog.WebUI.LogicProvider.ArticleLogic.Create(User.Identity.Name, title, createDate, mainImage, text, tagsArray, isPublished))
+        {
+             @RenderPage("~/partial/info/_AddArticleStatusPartial.cshtml")
+            return;
+        }
+
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <form action="~/articles/add" method="post" class="adding-new-article form-horizontal" enctype="multipart/form-data">
+            <h3>Добавление нового поста</h3>
+            <div class="row">
+                <div class="form-group">
+                    <label for="title" class="col-xs-3 control-label">Название записи</label>
+                    <div class="col-xs-9">
+                        <input type="text" class="form-control input-custom" id="title" name="title" placeholder="Напишите заголовок" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="text" class="col-xs-3 control-label">Текст записи</label>
+                    <div class="col-xs-9">
+                        <textarea rows="6" class="form-control input-custom" id="text" name="text" placeholder="Тело записи" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="text" class="col-xs-3 control-label">Изображение</label>
+                    <div class="col-xs-9">
+                        <label class="btn btn-custom btn-custom-default">
+                            Загрузить <input type="file" id="upload-input" name="file" class="hidden">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="text" class="col-xs-3 control-label">Теги</label>
+                    <div class="col-xs-9">
+                        @RenderPage("~/partial/engine/_AddTagPartial.cshtml")
+                    </div>
+                </div>
+            </div>
+            <div class="center">
+                <button type="submit" class="article-btn btn btn-custom btn-custom-ok" disabled>Добавить запись</button>
+            </div>
+        </form>
+    </div>
+</div>

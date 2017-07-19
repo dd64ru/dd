@@ -1,0 +1,17 @@
+﻿@{
+    if (!IsPost)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    string login = Request["login"];
+    if (PersonalBlog.WebUI.LogicProvider.UserLogic.IsLoginFree(login))
+    {
+        Response.AppendHeader("IsLoginFree", "true");
+    }
+    else
+    {
+        Response.AppendHeader("IsLoginFree", "false");
+    }
+}
